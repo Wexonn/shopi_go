@@ -4,44 +4,120 @@ import 'package:flutter/material.dart';
 void main() {
   print(" başarılı");
 
-  runApp(myApp);
+  runApp(MyApp());
 }
 
-String _name = 'Erdi';
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    String _name = 'Erdi';
 
-bool isDebug = false;
+    bool isDebug = false;
 
-Widget myApp = MaterialApp(
-  debugShowCheckedModeBanner: isDebug,
-  home: Scaffold(
-    appBar: AppBar(
-      title: const Text("Home"),
-      centerTitle: false,
-      actions: [
-        IconButton(
-          icon: Image.asset(
-            'assets/notification.png',
-            width: 27,
-            height: 27,
-          ),
-          onPressed: () {},
+    return MaterialApp(
+      debugShowCheckedModeBanner: isDebug,
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text("Home"),
+          centerTitle: false,
+          actions: [
+            IconButton(
+              icon: Image.asset(
+                'assets/notification.png',
+                width: 27,
+                height: 27,
+              ),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: Image.asset(
+                'assets/bag.png',
+                width: 27,
+                height: 27,
+              ),
+              onPressed: () {},
+            )
+          ],
         ),
-        IconButton(
-          icon: Image.asset(
-            'assets/bag.png',
-            width: 27,
-            height: 27,
-          ),
-          onPressed: () {},
-        )
-      ],
-    ),
-    body: Center(
-      child: Text('Selam $_name'),
-    ),
-    drawer: const Drawer(),
-  ),
-);
+        body: Column(
+          children: [
+            SizedBox(
+              height: 24,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: "Search Anything...",
+                  //hintText yerine labelText te kullanılabilir.
+                  prefixIcon: Icon(Icons.search),
+                  //Arama ikonu figmadaki ile değiştirilecek.
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      borderSide: BorderSide(
+                        color: Colors.grey,
+                      )),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              //sadece sağa ve sola boşluk eklemek istiyorsak EdgeInsets.symmetric(horizontal) kullanabiliriz.
+              child: Row(
+                children: [
+                  Text(
+                    'Categories',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 14,
+                      fontFamily: 'Inter',
+                    ),
+                  ),
+                  Spacer(),
+                  Text(
+                    'View All ->',
+                    textAlign: TextAlign.right,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 14,
+                      fontFamily: 'Inter',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  for (int i = 0; i < 10; i++)
+                    Column(
+                      children: [
+                        if (i % 2 == 0)
+                          Image.asset('assets/fashion.png')
+                        else
+                          Image.asset(
+                            'assets/Electronics.png',
+                            width: 27,
+                            height: 27,
+                          ),
+                        Text(i % 2 == 0 ? "Fashion" : "Electronics"),
+                      ],
+                    ),
+                ],
+              ),
+            ),
+            Text('Selam $_name'),
+          ],
+        ),
+        drawer: const Drawer(),
+      ),
+    );
+  }
+}
 
 //materialapp - uygulama mimarisi sunar
 
